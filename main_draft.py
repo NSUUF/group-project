@@ -68,9 +68,9 @@ def popular_genre_by_year(data):
 def main_menu():
     while True:
         print("\n      ----- Main Menu -----    ")
-        print("- Enter number 1 to calculate total sales by genre")
-        print("- Enter number 2 to view the most popular genre for a specific year")
-        print("- Enter number 3 to exit system")
+        print("- Enter number 1 to calculate total sales by genre.")
+        print("- Enter number 2 to view the most popular genre for a specific year.")
+        print("- Enter number 3 to exit system.")
         
         choice = input("Enter your choice (1-3): ")
 
@@ -80,7 +80,7 @@ def main_menu():
             case "2":
                 popular_genre_by_year(data)
             case "3":
-                print("Exiting")
+                print("System exited")
                 break
             case _:
                 print("Invalid choice")
