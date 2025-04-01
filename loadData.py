@@ -1,6 +1,6 @@
 import pandas as pd
 
-dataSet= pd.read_csv('vgsales.csv') #
+dataSet= pd.read_csv('vgsales.csv') 
 
 print("\nRole Playing games by Percentage ")
 
