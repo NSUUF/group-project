@@ -1,0 +1,27 @@
+import csv
+
+with open('vgsales.csv', 'r') as f:
+    csv_reader = csv.reader(f)
+    header_row = next(csv_reader)
+    print(header_row)
+    
+    yearArray = [0] * 36  
+    
+    for row in csv_reader:
+        data = row[3]
+        number = row[10]
+        
+        if data == 'N/A':  
+            next(csv_reader)
+        else:
+            dat = int(data)  
+            numb = float(number)  
+            
+            
+            if 1980 <= dat <= 2015:
+                year_index = dat - 1980  
+                yearArray[year_index] += numb  
+                
+   
+    for i in range(36):
+        print(f"Year {1980 + i}: {yearArray[i]}")
