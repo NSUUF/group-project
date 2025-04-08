@@ -223,24 +223,22 @@ def sales_per_year(data):
             print(f"Year {1980 + i}: {yearArray[i]}")
 
 def FIFA_EU_JP(data):
+    data = data.dropna()
 
- data = data.dropna()
- 
- fifa_games = data[data['Name'].str.contains("FIFA", case=False)]
- 
- fifa_games = fifa_games.sort_values(by='Year')
- 
- print("\nFIFA games in the dataset:")
- print(fifa_games[['Name', 'Year', 'EU_Sales', 'JP_Sales', 'Global_Sales']])
- 
+    fifa_games = data[data['Name'].str.contains("FIFA", case=False)]
+
+    fifa_games = fifa_games.sort_values(by='Year')
+
+    print("\nFIFA games in the dataset:")
+    print(fifa_games[['Name', 'Year', 'EU_Sales', 'JP_Sales', 'Global_Sales']])
+
+
 def average_sales_per_region(data):
+    data = data.dropna()
+    region_averages = data[['NA_Sales', 'EU_Sales', 'JP_Sales', 'Other_Sales', 'Global_Sales']].mean()
 
- data = data.dropna()
-region_averages = data[['NA_Sales', 'EU_Sales', 'JP_Sales', 'Other_Sales', 'Global_Sales']].mean()
- 
-print("\nAverage sales per region (in millions):")
-print(region_averages)
-
+    print("\nAverage sales per region (in millions):")
+    print(region_averages)
 def platform_sales_consistency(data):
     data_platform = data.dropna(subset=["Platform", "NA_Sales", "EU_Sales", "JP_Sales", "Other_Sales"])
     totals = data_platform.groupby("Platform")[["NA_Sales", "EU_Sales", "JP_Sales", "Other_Sales"]].sum()
