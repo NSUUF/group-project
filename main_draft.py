@@ -1,6 +1,7 @@
 #template for the menu, everyone can add the code for their questions to each function
 import pandas as pd
 import matplotlib.pyplot as plt
+import csv
 
 data = pd.read_csv("vgsales.csv")
 
@@ -79,14 +80,175 @@ def percentage_of_RPGs(data):
     print(f"\npercentage of role playing games: {RGPsPercentage :.2f}%")
 
 
-def average_global_sales(dataSet): #It's good practice to name functions descriptively
+def average_global_sales(data): #It's good practice to name functions descriptively
     print("\n ----- Average Global Sales Of All Games ----")
 
-    Global_Sales = dataSet["Global_Sales"]
-    total_games = (len(dataSet))
+    Global_Sales = data["Global_Sales"]
+    total_games = (len(data))
     Average_Sales = ((Global_Sales.sum()) / total_games)
 
     print(Average_Sales)
+
+def region_sales(data): # Consistent parameter name
+
+    data = data.dropna(subset=["Publisher", "NA_Sales", "EU_Sales", "JP_Sales"])
+
+    # get user input
+    valid_regions = ["NA_Sales", "EU_Sales", "JP_Sales"]
+    print("Choose a region from:", ", ".join(valid_regions))
+    region = input("Enter region exactly as shown: ")
+
+
+    if region in valid_regions:
+        # group by publisher for specified region
+        region_sales_output = (
+            data.groupby("Publisher")[region]
+            .sum()
+            .sort_values(ascending=False)
+            .head(10)  # top 10 publishers in that region
+        )
+        print(f"\nTop 10 Publishers by Sales in {region}:")
+        print(region_sales_output)
+        return region_sales_output
+
+    else:
+        print("Invalid region! Please enter one of:", valid_regions)
+        return None
+
+def top_platform(data):
+    # get total sales by publisher and take the top 15
+
+    data = data.dropna(subset=["Publisher", "Global_Sales"])
+    top_publishers = (
+        data.groupby("Publisher")["Global_Sales"]
+        .sum()
+        .sort_values(ascending=False)
+        .head(15)
+        .reset_index()
+    )
+    print(f"\n--------- Top 15 Publishers Globally ---------")
+    print(f"\n{top_publishers}")
+    return top_publishers
+
+def average_sales_genre(data):
+    with open('vgsales.csv', 'r') as f:
+        csv_reader = csv.reader(f)
+        header_row = next(csv_reader)
+        print(header_row)
+
+        sales = [0] * 12
+        genres = [0] * 12
+        genreName = ['Action', 'Adventure', 'Fighting', 'Misc', 'Platform', 'Puzzle', 'Racing', 'Role-playing',
+                     'Shooter', 'Simulation', 'Sports', 'Strategy']
+
+        for row in csv_reader:
+            data = row[4]
+            numb = row[10]
+            number = float(numb)
+
+            if data == "Action":
+                genres[0] += 1
+                sales[0] += number
+            if data == "Adventure":
+                genres[1] += 1
+                sales[1] += number
+            if data == "Fighting":
+                genres[2] += 1
+                sales[2] += number
+            if data == "Misc":
+                genres[3] += 1
+                sales[3] += number
+            if data == "Platform":
+                genres[4] += 1
+                sales[4] += number
+            if data == "Puzzle":
+                genres[5] += 1
+                sales[5] += number
+            if data == "Racing":
+                genres[6] += 1
+                sales[6] += number
+            if data == "Role-Playing":
+                genres[7] += 1
+                sales[7] += number
+            if data == "Shooter":
+                genres[8] += 1
+                sales[8] += number
+            if data == "Simulation":
+                genres[9] += 1
+                sales[9] += number
+            if data == "Sports":
+                genres[10] += 1
+                sales[10] += number
+            if data == "Strategy":
+                genres[11] += 1
+                sales[11] += number
+
+
+        for i in range(0, 12):
+            print(f"Genre {genreName[i]}: {genres[i]}")
+            if genres[i] > 0:
+                average = (sales[i] / genres[i]) * 1000000  # Average sales per game in millions
+                average = int(average)
+                print(f"Average sales: {average}")
+            else:
+                print(f"No data for {genreName[i]}.")
+
+        average_sales = [(sales[i] / genres[i]) * 1000000 if genres[i] > 0 else 0 for i in range(12)]
+        
+def sales_per_year(data):
+     with open('vgsales.csv', 'r') as f:
+        csv_reader = csv.reader(f)
+        header_row = next(csv_reader)
+        print(header_row)
+        
+        yearArray = [0] * 36
+        
+        for row in csv_reader:
+            data = row[3]
+            number = row[10]
+            
+            if data == 'N/A':
+                next(csv_reader)
+            else:
+                dat = int(data)
+                numb = float(number)
+                
+                
+                if 1980 <= dat <= 2015:
+                    year_index = dat - 1980
+                    yearArray[year_index] += numb
+                    
+        
+        for i in range(36):
+            print(f"Year {1980 + i}: {yearArray[i]}")
+
+def FIFA_EU_JP(data):
+
+ data = data.dropna()
+ 
+ fifa_games = data[data['Name'].str.contains("FIFA", case=False)]
+ 
+ fifa_games = fifa_games.sort_values(by='Year')
+ 
+ print("\nFIFA games in the dataset:")
+ print(fifa_games[['Name', 'Year', 'EU_Sales', 'JP_Sales', 'Global_Sales']])
+ 
+def average_sales_per_region(data):
+
+ data = data.dropna()
+region_averages = data[['NA_Sales', 'EU_Sales', 'JP_Sales', 'Other_Sales', 'Global_Sales']].mean()
+ 
+print("\nAverage sales per region (in millions):")
+print(region_averages)
+
+def platform_sales_consistency(data):
+    data_platform = data.dropna(subset=["Platform", "NA_Sales", "EU_Sales", "JP_Sales", "Other_Sales"])
+    totals = data_platform.groupby("Platform")[["NA_Sales", "EU_Sales", "JP_Sales", "Other_Sales"]].sum()
+    spread = totals.std(axis=1).sort_values()
+    print("\nPlatform Sales Consistency (the lower the number the more balanced the sales are across regions):\n")
+    for platform, value in spread.round(3).head(10).items():
+        print(f"{platform}: {value}")
+
 
 def main_menu():
     while True:
@@ -95,9 +257,16 @@ def main_menu():
         print("- Enter number 2 to view the most popular genre for a specific year.")
         print("- Enter number 3 to view the percentage of role playing games.")
         print("- Enter number 4 to view the average global sales for all games.")
-        print("- Enter number 5 to exit system.")
-        
-        choice = input("Enter your choice (1-5): ")
+        print("- Enter number 5 to view the top 10 publishers in a specific region.")
+        print("- Enter number 6 to view the top 15 publishers.")
+        print("- Enter number 7 to view the average sales of games by genre")
+        print("- Enter number 8 to view the total global sales per year from the years 1980 until 2015")
+        print("- Enter number 9 to view how FIFA sales compared with JP sales")
+        print("- Enter number 10 to view the average sales per region")
+        print("- Enter number 11 to view platform sales consistency")
+        print("- Enter number 12 to exit system.")
+    
+        choice = input("Enter your choice (1-12): ")
 
         match choice:
             case "1":
@@ -109,6 +278,20 @@ def main_menu():
             case "4":
                 average_global_sales(data)
             case "5":
+                region_sales(data)
+            case "6":
+                top_platform(data)
+            case "7":
+                average_sales_genre(data)
+            case "8":
+                sales_per_year(data)
+            case "9":
+                FIFA_EU_JP(data)
+            case "10":
+                average_sales_per_region(data)
+            case "11":
+                platform_sales_consistency(data)
+            case "11":
                 print("System exited")
                 break
             case _:
