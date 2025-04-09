@@ -10,4 +10,5 @@ games = ["Action", "Sports", "Misc", "Role-Playing", "Shooter", "Adventure", "Ra
 myexplode = [0,0,0,0.3,0,0,0,0,0,0,0,0,]
 mycolors = ["Red", "lightblue", "blue", "purple", "pink", "grey", "green", "yellow", "orange", "hotpink", "lightgreen", "indigo"]
 plt.pie(OverallGames, labels = games, explode = myexplode, shadow = True, colors= mycolors, autopct="%.2f%%")
+plt.title("Distribution of games by Genre")
 plt.show()
