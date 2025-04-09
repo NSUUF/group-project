@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 data = pd.read_csv(r'C:\Uni Coursework\SEM 2\Computer Science Workshop\Individual Work\vgsales.csv')
 
-data = data.dropna()
+data = data.dropna() #filter through data and drops any 'NA'
 
 fifa_games = data[data['Name'].str.contains("FIFA", case=False)]
 
