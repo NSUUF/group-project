@@ -1,4 +1,3 @@
-import pandas
-import matplotlib
+import pandas as pd 
 
-print("Hello World")
+data = pd.read_csv('vgsales.csv')
