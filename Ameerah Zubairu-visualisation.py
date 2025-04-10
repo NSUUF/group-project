@@ -8,7 +8,7 @@ OverallGames= dataSet["Genre"].value_counts()
 Games= dataSet["Genre"]
 games = ["Action", "Sports", "Misc", "Role-Playing", "Shooter", "Adventure", "Racing", "Platform", "Simulation", "Fighting", "Strategy", "Puzzle"]
 myexplode = [0,0,0,0.3,0,0,0,0,0,0,0,0,]
-mycolors = ["Red", "lightblue", "blue", "purple", "pink", "grey", "green", "yellow", "orange", "hotpink", "lightgreen", "indigo"]
+mycolors = ["Red", "lightblue", "cyan", "greenyellow", "pink", "grey", "green", "yellow", "orange", "hotpink", "orchid", "Rosybrown"]
 plt.pie(OverallGames, labels = games, explode = myexplode, shadow = True, colors= mycolors, autopct="%.2f%%")
 plt.title("Distribution of games by Genre")
 plt.show()
