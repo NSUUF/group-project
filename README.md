@@ -23,9 +23,10 @@ For macOS:
 7. To install matplotlib, type 'pip3 install matplotlib' and press enter. The system will begin installation.
 
 
+Firstly open the file 'insights_system.py' on your prefereed Python IDE.
 To begin the application, navigate to the 'run' feature of your IDE.
-Upon running the application will launch and display a main menu.
+Upon running, the application will launch and display a main menu.
 A list of options are displayed offering a choice of different insights to a data set.
-Please enter the number of the insight you wish to view and press enter.
-System runs algorithm to provide the insight as an output.
+Please enter the number assosiated with the insight you wish to view and press enter.
+System runs algorithm to provide the insight, as an output in the terminal.
 If there are any more instructions, follow them and keep pressing enter until the final output.
