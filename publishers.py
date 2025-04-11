@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-df = pd.read_csv("C:/Users/south/Downloads/vgsales.csv")
+df = pd.read_csv("vgsales.csv")
 
 #drop rows with missing values in Publisher or Global Sales
 df = df.dropna(subset=["Publisher", "Global_Sales"])
@@ -16,7 +16,6 @@ top_publishers = (
     .reset_index()
 )
 
-# Add a dummy "hue" column for consistent coloring
 top_publishers["Colour"] = top_publishers["Publisher"]
 
 
@@ -26,8 +25,8 @@ sns.barplot(
     x="Global_Sales",
     y="Publisher",
     hue="Colour",              
-    palette="viridis",
-    legend=False              #avoids hue warning
+    palette="crest",
+    legend=False           #avoids hue warning
 )
 plt.title("Top 15 Publishers by Global Sales")
 plt.xlabel("Global Sales (millions)")
