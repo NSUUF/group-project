@@ -1,13 +1,13 @@
 
 #template for the menu, everyone can add the code for their questions to each function
-
+#draft still using if/elif for menu
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-df = pd.read_csv("C:/Users/csmwsout/Downloads/vgsales.csv")
+df = pd.read_csv("vgsales.csv")
 
-# placeholder functions for each team members question
+#testing q1 and 2 in menu
 def question_1():
     df_clean = df.dropna(subset=["Publisher", "Global_Sales"])
 
@@ -27,9 +27,9 @@ def question_1():
         data=top_publishers,
         x="Global_Sales",
         y="Publisher",
-        hue="Colour", #avoids hue warning
-        palette="viridis",
-        legend=False
+        hue="Colour", 
+        palette="crest",
+        legend=False #avoids annoying hue warning
     )
     plt.title("Top 15 Publishers by Global Sales")
     plt.xlabel("Global Sales (millions)")
@@ -58,7 +58,7 @@ def question_2():
             autopct="%1.1f%%",
             startangle=140
         )
-        axes[i].set_title(f"Top 10 Publishers - {region.replace('_', ' ')}")
+        axes[i].set_title(f"Top 10 Publishers - {region.replace('_', ' ')}") #get rid of underscores
 
     plt.tight_layout()
     plt.show()
@@ -81,13 +81,13 @@ def question_7():
 def main_menu():
     while True:
         print("\n==== Video Game Analysis ====")
-        print("1. Question 1: [Brief Description Here]")
-        print("2. Question 2: [Brief Description Here]")
-        print("3. Question 3: [Brief Description Here]")
-        print("4. Question 4: [Brief Description Here]")
-        print("5. Question 5: [Brief Description Here]")
-        print("6. Question 6: [Brief Description Here]")
-        print("7. Question 7: [Brief Description Here]")
+        print("1. Question 1: Top 15 Publishers Globally")
+        print("2. Question 2: Top 10 Publishers in Each Region")
+        print("3. Question 3: ")
+        print("4. Question 4: ")
+        print("5. Question 5: ")
+        print("6. Question 6: ")
+        print("7. Question 7: ")
         print("8. Exit")
         
         choice = input("Enter your choice (1-8): ")
