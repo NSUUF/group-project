@@ -1,27 +1,38 @@
 import csv
+import matplotlib.pyplot as plt
 
 with open('vgsales.csv', 'r') as f:
     csv_reader = csv.reader(f)
     header_row = next(csv_reader)
     print(header_row)
-    
+
     yearArray = [0] * 36  
-    
+
     for row in csv_reader:
         data = row[3]
         number = row[10]
-        
-        if data == 'N/A':  
-            next(csv_reader)
+
+        if data == 'N/A':
+            continue  
         else:
-            dat = int(data)  
-            numb = float(number)  
-            
-            
-            if 1980 <= dat <= 2015:
-                year_index = dat - 1980  
-                yearArray[year_index] += numb  
-                
-   
-    for i in range(36):
-        print(f"Year {1980 + i}: {yearArray[i]}")
+            try:
+                dat = int(data)
+                numb = float(number)
+
+                if 1980 <= dat <= 2015:
+                    year_index = dat - 1980
+                    yearArray[year_index] += numb
+            except ValueError:
+                continue  
+
+
+for i in range(36):
+    print(f"Year {1980 + i}: {yearArray[i]}")
+
+years = list(range(1980, 2016))
+plt.plot(years, yearArray)
+plt.title('Total Global Video Game Sales by Year (1980-2015)')
+plt.xlabel('Year')
+plt.ylabel('Global Sales (in millions)')
+plt.tight_layout()
+plt.show()

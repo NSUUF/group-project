@@ -58,7 +58,7 @@ with open('vgsales.csv', 'r') as f:
     for i in range(0, 12):
         print(f"Genre {genreName[i]}: {genres[i]}")
         if genres[i] > 0:
-            average = (sales[i] / genres[i]) * 1000000  # Average sales per game in millions
+            average = (sales[i] / genres[i]) * 1000000  
             average = int(average)
             print(f"Average sales: {average}")
         else:
